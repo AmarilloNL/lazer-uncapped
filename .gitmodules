@@ -1,0 +1,4 @@
+[submodule "osu-framework"]
+	path = osu-framework
+	url = https://github.com/AmarilloNL/osu-framework
+	branch = uncapped
