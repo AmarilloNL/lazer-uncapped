@@ -29,7 +29,7 @@ Each branch is the official release with just a couple of commits on top:
 Requirements: Windows, git, and the [.NET 10 SDK](https://dotnet.microsoft.com/download).
 
 ```powershell
-git clone --recursive -b uncapped https://github.com/AmarilloNL/osu
+git -c core.longpaths=true clone --recursive -b uncapped https://github.com/AmarilloNL/osu
 cd osu
 dotnet publish osu.Desktop -c Release -r win-x64 --self-contained true -p:PublishReadyToRun=true -o build
 ```
