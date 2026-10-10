@@ -3,6 +3,7 @@
 
 using System;
 using System.IO;
+using System.Reflection;
 using System.Runtime.Versioning;
 using osu.Desktop.LegacyIpc;
 using osu.Desktop.Windows;
@@ -37,6 +38,13 @@ namespace osu.Desktop
             // This has bitten us in the rear before (bricked updater), and although the underlying issue from
             // last time has been fixed, let's not tempt fate.
             setupVelopack(args);
+
+            // Lazer Uncapped: single-file builds have no ruleset dlls on disk for RulesetStore.loadFromDisk to find.
+            // Load the built-in ones up front so RulesetStore.loadFromAppDomain picks them up (same approach as osu.Android).
+            Assembly.Load("osu.Game.Rulesets.Osu");
+            Assembly.Load("osu.Game.Rulesets.Taiko");
+            Assembly.Load("osu.Game.Rulesets.Catch");
+            Assembly.Load("osu.Game.Rulesets.Mania");
 
             if (OperatingSystem.IsWindows())
             {
