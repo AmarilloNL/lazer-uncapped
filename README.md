@@ -4,9 +4,10 @@
 
 ### Download
 
-Get the latest zip from **[Releases](https://github.com/AmarilloNL/lazer-uncapped/releases/latest)**. Extract it anywhere, run `osu!.exe`, then set **Frame limiter → Unlimited** in settings.
+Download **`lazer-uncapped-<version>.exe`** from **[Releases](https://github.com/AmarilloNL/lazer-uncapped/releases/latest)** and run it. It's a single file, so there's nothing to install or extract. Then set **Frame limiter → Unlimited** in settings.
 
-- It runs on Windows x64. You don't need to install .NET.
+- It runs on Windows x64. You don't need to install .NET. It's about 400 MB because everything is packed into the one file.
+- Prefer a zip? Each release also has one with the same exe plus the licence files.
 - Windows SmartScreen may warn you because the exe isn't signed. Click **More info → Run anyway**.
 - **Use the release that matches your installed lazer version.** It shares your normal lazer data folder (beatmaps, skins, settings). If a newer lazer has already updated that folder, an older build may not be able to open it.
 - Expect higher CPU/GPU usage and heat, since the game now runs as fast as your hardware allows.
@@ -22,7 +23,7 @@ Each branch is the official release with just a couple of commits on top:
 | Repo | Change |
 |---|---|
 | [AmarilloNL/osu-framework](https://github.com/AmarilloNL/osu-framework/commits/uncapped) | `GameHost.cs`: removes the clamp that caps draw/update rates at 1000. `ThreadRunner.cs`: in multithreaded mode, the input thread follows the update limiter instead of a fixed 1000 Hz. |
-| this repo | Includes that framework as a submodule and builds against it instead of the NuGet package, and adds this README section. |
+| this repo | Includes that framework as a submodule and builds against it instead of the NuGet package. Loads the built-in rulesets explicitly at startup so the game works as a single-file exe. Adds this README section and `NOTICE.txt`. |
 
 ### Building
 
@@ -31,7 +32,7 @@ Requirements: Windows, git, and the [.NET 10 SDK](https://dotnet.microsoft.com/d
 ```powershell
 git -c core.longpaths=true clone --recursive -b uncapped https://github.com/AmarilloNL/lazer-uncapped
 cd lazer-uncapped
-dotnet publish osu.Desktop -c Release -r win-x64 --self-contained true -p:PublishReadyToRun=true -o build
+dotnet publish osu.Desktop -c Release -r win-x64 --self-contained true -p:PublishReadyToRun=true -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -p:DebugType=embedded -o build
 ```
 
 ### Licence and disclaimer
@@ -49,7 +50,7 @@ If ppy asks for any of this to change or come down, it will be.
 1. Find the framework version the new release uses: the `ppy.osu.Framework` version in `osu.Game.csproj` at the new `<version>-lazer` tag.
 2. In osu-framework, rebase the `uncapped` commit onto that framework tag.
 3. In osu, rebase the `uncapped` commits onto `<version>-lazer`. Re-apply the csproj change and point the submodule at the new framework commit.
-4. Build. Copy `LICENCE` → `LICENCE.txt`, `osu-framework/LICENCE` → `LICENCE-osu-framework.txt` and `NOTICE.txt` into the build folder. Zip it as `lazer-uncapped-<version>-win-x64.zip` and publish a release tagged `<version>-uncapped`.
+4. Build, then rename `build/osu!.exe` to `lazer-uncapped-<version>.exe`. The other files in `build/` aren't needed. Publish a release tagged `<version>-uncapped` with that exe, plus a zip of the exe with `LICENCE` → `LICENCE.txt`, `osu-framework/LICENCE` → `LICENCE-osu-framework.txt` and `NOTICE.txt`.
 
 ---
 
