@@ -1,0 +1,30 @@
+Lazer Uncapped
+==============
+
+An UNOFFICIAL, non-commercial build of osu!lazer with the 1000 Hz frame/input
+cap removed. It is not made, endorsed or supported by ppy Pty Ltd.
+
+Source: https://github.com/AmarilloNL/lazer-uncapped
+
+Licences
+--------
+- osu! (game code): MIT licence, Copyright (c) ppy Pty Ltd. See LICENCE.txt.
+- osu-framework: MIT licence, Copyright (c) ppy Pty Ltd. See LICENCE-osu-framework.txt.
+  Modified: the 1000 Hz cap was removed (see the source link above).
+- Game resources (ppy.osu.Game.Resources: graphics, sounds, fonts etc.):
+  CC BY-NC 4.0, by ppy Pty Ltd, unmodified.
+  https://github.com/ppy/osu-resources
+  https://creativecommons.org/licenses/by-nc/4.0/
+  This means non-commercial use only: this build must not be sold or monetised.
+  Some fonts have separate licences; see the osu-resources repository.
+
+Trademarks
+----------
+"osu!" and "ppy" are trademarks of ppy Pty Ltd. They are used here only to
+describe what this build is based on. The in-game osu! branding is ppy's
+original and unchanged. No affiliation or endorsement is implied.
+
+No warranty
+-----------
+Provided "as is", without warranty of any kind. Scores cannot be submitted to
+the official servers with this build.

@@ -1,10 +1,10 @@
-# osu! (uncapped)
+# Lazer Uncapped
 
-> **This is an unofficial fork of [ppy/osu](https://github.com/ppy/osu).** It's osu!lazer with the **1000 Hz frame and input cap removed**, so it runs uncapped the way osu!stable can. It isn't affiliated with ppy. **You can't submit scores with it**, because the official servers only accept official builds.
+> **An unofficial fork of [ppy/osu](https://github.com/ppy/osu).** Lazer Uncapped is osu!lazer with the **1000 Hz frame and input cap removed**, so it runs uncapped the way osu!stable can. It isn't affiliated with ppy. **You can't submit scores with it**, because the official servers only accept official builds.
 
 ### Download
 
-Get the latest zip from **[Releases](https://github.com/AmarilloNL/osu/releases/latest)**. Extract it anywhere, run `osu!.exe`, then set **Frame limiter → Unlimited** in settings.
+Get the latest zip from **[Releases](https://github.com/AmarilloNL/lazer-uncapped/releases/latest)**. Extract it anywhere, run `osu!.exe`, then set **Frame limiter → Unlimited** in settings.
 
 - It runs on Windows x64. You don't need to install .NET.
 - Windows SmartScreen may warn you because the exe isn't signed. Click **More info → Run anyway**.
@@ -29,17 +29,27 @@ Each branch is the official release with just a couple of commits on top:
 Requirements: Windows, git, and the [.NET 10 SDK](https://dotnet.microsoft.com/download).
 
 ```powershell
-git -c core.longpaths=true clone --recursive -b uncapped https://github.com/AmarilloNL/osu
-cd osu
+git -c core.longpaths=true clone --recursive -b uncapped https://github.com/AmarilloNL/lazer-uncapped
+cd lazer-uncapped
 dotnet publish osu.Desktop -c Release -r win-x64 --self-contained true -p:PublishReadyToRun=true -o build
 ```
+
+### Licence and disclaimer
+
+- **Unofficial.** Lazer Uncapped is a fan-made, **non-commercial** project. It isn't made, endorsed or supported by ppy Pty Ltd. Please don't report bugs from this build to ppy.
+- **Code:** osu! and osu-framework are © ppy Pty Ltd under the [MIT licence](LICENCE). This fork's changes are under the same licence. The original copyright and licence notices are kept here and included in every release zip.
+- **Game resources:** the graphics, sounds and fonts from [ppy/osu-resources](https://github.com/ppy/osu-resources) are © ppy Pty Ltd under [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/) and are not modified. You can't use them commercially, so **this build must never be sold or monetised.**
+- **Trademarks:** "osu!" and "ppy" are trademarks of ppy Pty Ltd. They're used here only to describe what this build is based on. This project's name deliberately leaves them out.
+- **No warranty:** provided "as is". You can't submit scores with this build.
+
+If ppy asks for any of this to change or come down, it will be.
 
 ### Updating to a new lazer release
 
 1. Find the framework version the new release uses: the `ppy.osu.Framework` version in `osu.Game.csproj` at the new `<version>-lazer` tag.
 2. In osu-framework, rebase the `uncapped` commit onto that framework tag.
 3. In osu, rebase the `uncapped` commits onto `<version>-lazer`. Re-apply the csproj change and point the submodule at the new framework commit.
-4. Build, zip and publish a release tagged `<version>-uncapped`.
+4. Build. Copy `LICENCE` → `LICENCE.txt`, `osu-framework/LICENCE` → `LICENCE-osu-framework.txt` and `NOTICE.txt` into the build folder. Zip it as `lazer-uncapped-<version>-win-x64.zip` and publish a release tagged `<version>-uncapped`.
 
 ---
 
@@ -108,7 +118,7 @@ Clone the repository:
 
 ```shell
 git clone https://github.com/ppy/osu
-cd osu
+cd lazer-uncapped
 ```
 
 To update the source code to the latest commit, run the following command inside the `osu` directory:
