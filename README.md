@@ -1,3 +1,50 @@
+# osu! (uncapped)
+
+> **This is an unofficial fork of [ppy/osu](https://github.com/ppy/osu).** It's osu!lazer with the **1000 Hz frame and input cap removed**, so it runs uncapped the way osu!stable can. It isn't affiliated with ppy. **You can't submit scores with it**, because the official servers only accept official builds.
+
+### Download
+
+Get the latest zip from **[Releases](https://github.com/AmarilloNL/osu/releases/latest)**. Extract it anywhere, run `osu!.exe`, then set **Frame limiter → Unlimited** in settings.
+
+- It runs on Windows x64. You don't need to install .NET.
+- Windows SmartScreen may warn you because the exe isn't signed. Click **More info → Run anyway**.
+- **Use the release that matches your installed lazer version.** It shares your normal lazer data folder (beatmaps, skins, settings). If a newer lazer has already updated that folder, an older build may not be able to open it.
+- Expect higher CPU/GPU usage and heat, since the game now runs as fast as your hardware allows.
+
+### Why
+
+Lazer has a hard 1000 fps cap in osu-framework (`maximum_sane_fps`), and in multithreaded mode the input thread is also fixed at 1000 Hz. Even with the frame limiter on "Unlimited", nothing runs faster than 1 ms per frame. If you're coming from stable, especially on a tablet with a high refresh rate monitor, that extra bit of latency can feel noticeably worse. With the cap removed, lazer feels much closer to stable.
+
+### What's changed
+
+Each branch is the official release with just a couple of commits on top:
+
+| Repo | Change |
+|---|---|
+| [AmarilloNL/osu-framework](https://github.com/AmarilloNL/osu-framework/commits/uncapped) | `GameHost.cs`: removes the clamp that caps draw/update rates at 1000. `ThreadRunner.cs`: in multithreaded mode, the input thread follows the update limiter instead of a fixed 1000 Hz. |
+| this repo | Includes that framework as a submodule and builds against it instead of the NuGet package, and adds this README section. |
+
+### Building
+
+Requirements: Windows, git, and the [.NET 10 SDK](https://dotnet.microsoft.com/download).
+
+```powershell
+git clone --recursive -b uncapped https://github.com/AmarilloNL/osu
+cd osu
+dotnet publish osu.Desktop -c Release -r win-x64 --self-contained true -p:PublishReadyToRun=true -o build
+```
+
+### Updating to a new lazer release
+
+1. Find the framework version the new release uses: the `ppy.osu.Framework` version in `osu.Game.csproj` at the new `<version>-lazer` tag.
+2. In osu-framework, rebase the `uncapped` commit onto that framework tag.
+3. In osu, rebase the `uncapped` commits onto `<version>-lazer`. Re-apply the csproj change and point the submodule at the new framework commit.
+4. Build, zip and publish a release tagged `<version>-uncapped`.
+
+---
+
+*Below is the original osu! README.*
+
 <p align="center">
   <img width="500" alt="osu! logo" src="assets/lazer.png">
 </p>
