@@ -1,31 +1,64 @@
-# Lazer Uncapped
+<div align="center">
 
-> **An unofficial fork of [ppy/osu](https://github.com/ppy/osu).** Lazer Uncapped is osu!lazer with the **1000 Hz frame and input cap removed**, so it runs uncapped the way osu!stable can. It isn't affiliated with ppy. **You can't submit scores with it**, because the official servers only accept official builds.
+# 🚀 Lazer Uncapped
 
-### Download
+**osu!lazer with the 1000 Hz frame and input cap removed, so it runs uncapped like osu!stable can.**
 
-Download **`lazer-uncapped-<version>.exe`** from **[Releases](https://github.com/AmarilloNL/lazer-uncapped/releases/latest)** and run it. It's a single file, so there's nothing to install or extract. Then set **Frame limiter → Unlimited** in settings.
+[![Latest release](https://img.shields.io/github/v/release/AmarilloNL/lazer-uncapped?style=for-the-badge&color=ff66aa&label=release)](https://github.com/AmarilloNL/lazer-uncapped/releases/latest)
+[![Windows x64](https://img.shields.io/badge/Windows-x64-0078d4?style=for-the-badge&logo=windows11&logoColor=white)](#download)
+[![Unofficial](https://img.shields.io/badge/unofficial-fan%20build-64748b?style=for-the-badge)](#licence)
+[![License: MIT](https://img.shields.io/badge/code-MIT-22c55e?style=for-the-badge)](LICENCE)
 
-- It runs on Windows x64. You don't need to install .NET. It's about 400 MB because everything is packed into the one file.
-- Prefer a zip? Each release also has one with the same exe plus the licence files.
-- Windows SmartScreen may warn you because the exe isn't signed. Click **More info → Run anyway**.
-- **Use the release that matches your installed lazer version.** It shares your normal lazer data folder (beatmaps, skins, settings). If a newer lazer has already updated that folder, an older build may not be able to open it.
-- Expect higher CPU/GPU usage and heat, since the game now runs as fast as your hardware allows.
+[**⬇️ Download**](https://github.com/AmarilloNL/lazer-uncapped/releases/latest) · [❓ Why](#why) · [🔧 What's changed](#whats-changed) · [🛠️ Building](#building) · [⚖️ Licence](#licence)
 
-### Why
+</div>
 
-Lazer has a hard 1000 fps cap in osu-framework (`maximum_sane_fps`), and in multithreaded mode the input thread is also fixed at 1000 Hz. Even with the frame limiter on "Unlimited", nothing runs faster than 1 ms per frame. If you're coming from stable, especially on a tablet with a high refresh rate monitor, that extra bit of latency can feel noticeably worse. With the cap removed, lazer feels much closer to stable.
+> [!IMPORTANT]
+> **An unofficial fork of [ppy/osu](https://github.com/ppy/osu).** It isn't affiliated with ppy.
+> **You can't submit scores with it**, because the official servers only accept official builds.
 
-### What's changed
+<a id="download"></a>
+
+## ⬇️ Download
+
+Download **`lazer-uncapped-<version>.exe`** from [**Releases**](https://github.com/AmarilloNL/lazer-uncapped/releases/latest)
+and run it. It's a single file, so there's nothing to install or extract. Then set
+**Frame limiter → Unlimited** in settings.
+
+> [!WARNING]
+> **Use the release that matches your installed lazer version.** It shares your normal lazer data
+> folder (beatmaps, skins, settings). If a newer lazer has already updated that folder, an older
+> build may not be able to open it.
+
+- 💻 Runs on Windows x64. You don't need to install .NET. It's about 400 MB because everything is packed into the one file.
+- 🗜️ Prefer a zip? Each release also has one with the same exe plus the licence files.
+- 🛡️ Windows SmartScreen may warn you because the exe isn't signed. Click **More info → Run anyway**.
+- 🔥 Expect higher CPU/GPU usage and heat, since the game now runs as fast as your hardware allows.
+
+<a id="why"></a>
+
+## ❓ Why
+
+Lazer has a hard 1000 fps cap in osu-framework (`maximum_sane_fps`), and in multithreaded mode the
+input thread is also fixed at 1000 Hz. Even with the frame limiter on "Unlimited", nothing runs
+faster than 1 ms per frame. If you're coming from stable, especially on a tablet with a high refresh
+rate monitor, that extra bit of latency can feel noticeably worse. **With the cap removed, lazer
+feels much closer to stable.**
+
+<a id="whats-changed"></a>
+
+## 🔧 What's changed
 
 Each branch is the official release with just a couple of commits on top:
 
 | Repo | Change |
 |---|---|
-| [AmarilloNL/osu-framework](https://github.com/AmarilloNL/osu-framework/commits/uncapped) | `GameHost.cs`: removes the clamp that caps draw/update rates at 1000. `ThreadRunner.cs`: in multithreaded mode, the input thread follows the update limiter instead of a fixed 1000 Hz. |
-| this repo | Includes that framework as a submodule and builds against it instead of the NuGet package. Loads the built-in rulesets explicitly at startup so the game works as a single-file exe. Adds this README section and `NOTICE.txt`. |
+| 🧩 [AmarilloNL/osu-framework](https://github.com/AmarilloNL/osu-framework/commits/uncapped) | `GameHost.cs`: removes the clamp that caps draw/update rates at 1000. `ThreadRunner.cs`: in multithreaded mode, the input thread follows the update limiter instead of a fixed 1000 Hz. |
+| 🎮 this repo | Includes that framework as a submodule and builds against it instead of the NuGet package. Loads the built-in rulesets explicitly at startup so the game works as a single-file exe. Adds this README section and `NOTICE.txt`. |
 
-### Building
+<a id="building"></a>
+
+## 🛠️ Building
 
 Requirements: Windows, git, and the [.NET 10 SDK](https://dotnet.microsoft.com/download).
 
@@ -35,26 +68,34 @@ cd lazer-uncapped
 dotnet publish osu.Desktop -c Release -r win-x64 --self-contained true -p:PublishReadyToRun=true -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -p:DebugType=embedded -o build
 ```
 
-### Licence and disclaimer
-
-- **Unofficial.** Lazer Uncapped is a fan-made, **non-commercial** project. It isn't made, endorsed or supported by ppy Pty Ltd. Please don't report bugs from this build to ppy.
-- **Code:** osu! and osu-framework are © ppy Pty Ltd under the [MIT licence](LICENCE). This fork's changes are under the same licence. The original copyright and licence notices are kept here and included in every release zip.
-- **Game resources:** the graphics, sounds and fonts from [ppy/osu-resources](https://github.com/ppy/osu-resources) are © ppy Pty Ltd under [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/) and are not modified. You can't use them commercially, so **this build must never be sold or monetised.**
-- **Trademarks:** "osu!" and "ppy" are trademarks of ppy Pty Ltd. They're used here only to describe what this build is based on. This project's name deliberately leaves them out.
-- **No warranty:** provided "as is". You can't submit scores with this build.
-
-If ppy asks for any of this to change or come down, it will be.
-
-### Updating to a new lazer release
+<details>
+<summary><b>🔄 Updating to a new lazer release</b></summary>
+<br>
 
 1. Find the framework version the new release uses: the `ppy.osu.Framework` version in `osu.Game.csproj` at the new `<version>-lazer` tag.
 2. In osu-framework, rebase the `uncapped` commit onto that framework tag.
 3. In osu, rebase the `uncapped` commits onto `<version>-lazer`. Re-apply the csproj change and point the submodule at the new framework commit.
 4. Build, then rename `build/osu!.exe` to `lazer-uncapped-<version>.exe`. The other files in `build/` aren't needed. Publish a release tagged `<version>-uncapped` with that exe, plus a zip of the exe with `LICENCE` → `LICENCE.txt`, `osu-framework/LICENCE` → `LICENCE-osu-framework.txt` and `NOTICE.txt`.
 
+</details>
+
+<a id="licence"></a>
+
+## ⚖️ Licence and disclaimer
+
+- 🏷️ **Unofficial.** Lazer Uncapped is a fan-made, **non-commercial** project. It isn't made, endorsed or supported by ppy Pty Ltd. Please don't report bugs from this build to ppy.
+- 📜 **Code:** osu! and osu-framework are © ppy Pty Ltd under the [MIT licence](LICENCE). This fork's changes are under the same licence. The original copyright and licence notices are kept here and included in every release zip.
+- 🎨 **Game resources:** the graphics, sounds and fonts from [ppy/osu-resources](https://github.com/ppy/osu-resources) are © ppy Pty Ltd under [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/) and are not modified. You can't use them commercially, so **this build must never be sold or monetised.**
+- ™️ **Trademarks:** "osu!" and "ppy" are trademarks of ppy Pty Ltd. They're used here only to describe what this build is based on. This project's name deliberately leaves them out.
+- 🤷 **No warranty:** provided "as is". You can't submit scores with this build.
+
+If ppy asks for any of this to change or come down, it will be.
+
 ---
 
-*Below is the original osu! README.*
+<details>
+<summary><b>📖 The original osu! README</b></summary>
+<br>
 
 <p align="center">
   <img width="500" alt="osu! logo" src="assets/lazer.png">
@@ -203,3 +244,5 @@ Our team believes in **human contributions**. Any contribution – be it an issu
 Please note that this *does not cover* the usage of the "osu!" or "ppy" branding in any software, resources, advertising or promotion, as this is protected by trademark law.
 
 Please also note that game resources are covered by a separate licence. Please see the [ppy/osu-resources](https://github.com/ppy/osu-resources) repository for clarifications.
+
+</details>
